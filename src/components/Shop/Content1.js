@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { getListProduct } from "../../store/actions/ProductAction";
 import Card from "./Card";
 import CaraoselShop from "./CaraoselShop";
+import Keranjang from "../Keranjang/Modal";
 
 class Content1 extends Component {
   constructor(props) {
@@ -37,6 +38,29 @@ class Content1 extends Component {
     console.log("Select :", selectedGender);
     return (
       <div className="container">
+        {/* OffCanvas sebelah kanan */}
+        <div
+          class="offcanvas offcanvas-end"
+          tabindex="-1"
+          id="offcanvasRight"
+          aria-labelledby="offcanvasRightLabel"
+          style={{ width: "30%" }}
+        >
+          <div class="offcanvas-header">
+            <h5 id="offcanvasRightLabel">Offcanvas right</h5>
+            <button
+              type="button"
+              class="btn-close text-reset"
+              data-bs-dismiss="offcanvas"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="offcanvas-body">
+            <Keranjang />
+          </div>
+        </div>
+        {/*  */}
+
         <CaraoselShop />
         <div className="container d-none d-lg-block">
           <div className="container d-flex justify-content-between align-items-center mt-4 ">

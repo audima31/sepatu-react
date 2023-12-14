@@ -5,6 +5,7 @@ import { Carousel } from "react-responsive-carousel";
 import Foto1 from "../../assets/images/Journey/Foto1.png";
 import Foto2 from "../../assets/images/Journey/Foto2.png";
 import Foto3 from "../../assets/images/Journey/Foto3.png";
+import Keranjang from "../Keranjang/Modal";
 
 class Content1 extends Component {
   constructor(props) {
@@ -19,6 +20,36 @@ class Content1 extends Component {
     console.log("Data : ", images);
     return (
       <div>
+        {/* OffCanvas sebelah kanan */}
+        <div
+          class="offcanvas offcanvas-end"
+          tabindex="-1"
+          id="offcanvasRight"
+          aria-labelledby="offcanvasRightLabel"
+          style={{ width: "30%" }}
+        >
+          <div class="offcanvas-header ">
+            <h5
+              className="fw-semibold"
+              id="offcanvasRightLabel"
+              style={{ color: "#fa9200" }}
+            >
+              CART
+            </h5>
+            <button
+              type="button"
+              class="btn-close text-reset"
+              data-bs-dismiss="offcanvas"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <div class="offcanvas-body">
+            <Keranjang />
+          </div>
+        </div>
+        {/*  */}
+
         <h4
           className="text-center mt-4 fw-semibold"
           style={{ color: "#fa9200" }}

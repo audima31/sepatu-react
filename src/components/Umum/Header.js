@@ -85,10 +85,11 @@ export default function Header() {
             <li class="nav-item d-block d-lg-none">
               <a
                 className={
-                  location.pathname === "/test"
+                  location.pathname === "/keranjang"
                     ? "nav-link active fw-bold akses"
                     : "nav-link fw-bold beforeAkses "
                 }
+                href="/keranjang"
               >
                 Keranjang
               </a>
@@ -100,6 +101,7 @@ export default function Header() {
                     ? "nav-link active fw-bold akses"
                     : "nav-link fw-bold beforeAkses "
                 }
+                href="/logout"
               >
                 Logout
               </a>
@@ -115,9 +117,22 @@ export default function Header() {
 
             <button
               className="ms-4 buttonIconNavbar"
+              type="button"
+              data-bs-toggle="offcanvas"
+              data-bs-target="#offcanvasRight"
+              aria-controls="offcanvasRight"
               style={{ backgroundColor: "transparent", border: 0 }}
             >
+              {/* <a
+                className={
+                  location.pathname === "/keranjang"
+                    ? "nav-link active fw-bold akses"
+                    : "nav-link fw-bold beforeAkses "
+                }
+                href="/keranjang"
+              > */}
               <img src={Keranjang} alt="Keranjang" />
+              {/* </a> */}
             </button>
           </div>
         </div>
