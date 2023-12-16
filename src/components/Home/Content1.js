@@ -4,33 +4,33 @@ import Keranjang from "../Keranjang/Modal";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 class Content1 extends Component {
-  constructor(props) {
-    super(props);
+  // constructor(props) {
+  //   super(props);
 
-    this.state = {
-      loginChecked: false,
-    };
-  }
-  handleCheckLogin() {
-    const auth = getAuth();
-    onAuthStateChanged(auth, (user) => {
-      console.log("Data User : ", user);
-      if (user) {
-      } else {
-        // User is signed out
-        window.location = "/login";
-      }
-    });
-    this.setState({
-      loginChecked: true,
-    });
-  }
+  //   this.state = {
+  //     loginChecked: false,
+  //   };
+  // }
+  // handleCheckLogin() {
+  //   const auth = getAuth();
+  //   onAuthStateChanged(auth, (user) => {
+  //     console.log("Data User : ", user);
+  //     if (user) {
+  //     } else {
+  //       // User is signed out
+  //       window.location = "/login";
+  //     }
+  //   });
+  //   this.setState({
+  //     loginChecked: true,
+  //   });
+  // }
 
-  componentDidMount() {
-    if (this.state.loginChecked === false) {
-      this.handleCheckLogin();
-    }
-  }
+  // componentDidMount() {
+  //   if (this.state.loginChecked === false) {
+  //     this.handleCheckLogin();
+  //   }
+  // }
 
   render() {
     return (
