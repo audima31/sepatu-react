@@ -4,10 +4,11 @@ import {
   dispatchLoading,
   dispatchSuccess,
 } from "../../utils/dispatch";
-import { ref, onValue } from "firebase/database";
+import { ref, onValue, set } from "firebase/database";
 
 export const GET_LIST_PRODUCT = "GET_LIST_PRODUCT";
 export const GET_DETAIL_PRODUCT = "GET_DETAIL_PRODUCT";
+export const TAMBAH_KERANJANG = "TAMBAH_KERANJANG";
 
 export const getListProduct = () => {
   return (dispatch) => {
@@ -35,6 +36,25 @@ export const getDetailProduct = (id) => {
         const data = snapshot.val();
         console.log("Data Detail Product: ", data);
         dispatchSuccess(dispatch, GET_DETAIL_PRODUCT, data);
+      } else {
+        dispatchError(dispatch, GET_DETAIL_PRODUCT, "Error");
+      }
+    });
+  };
+};
+
+export const tambahKeranjang = (id) => {
+  return (dispatch) => {
+    dispatchLoading(dispatch, TAMBAH_KERANJANG);
+
+    //Ambil Id nya dulu
+    const starCountRef = ref(FIREBASE, "product/" + id);
+    onValue(starCountRef, (snapshot) => {
+      if (snapshot) {
+        const data = snapshot.val();
+        // Ketika data sudah dapat, maka tambahkan ke data 'Cart'
+        // set(ref(FIREBASE, "cart/" + new Date().getTime() + "-" ));
+        console.log("Data Detail Product: ", data);
       } else {
         dispatchError(dispatch, GET_DETAIL_PRODUCT, "Error");
       }

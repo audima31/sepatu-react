@@ -33,7 +33,7 @@ class Content1 extends Component {
           </div>
         </div>
         {/*  */}
-        <div className="container">test</div>
+        <div className="container"></div>
       </div>
     );
   }

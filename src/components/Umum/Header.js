@@ -108,12 +108,21 @@ export default function Header() {
             </li>
           </ul>
           <div className="d-none d-lg-block">
-            <button
-              className="ms-4 buttonIconNavbar"
-              style={{ backgroundColor: "transparent", border: 0 }}
-            >
-              <img src={User} alt="User" />
-            </button>
+            {/*  */}
+            <div class="dropdown">
+              <button
+                className="ms-4 buttonIconNavbar dropbtn"
+                style={{ backgroundColor: "transparent", border: 0 }}
+              >
+                <img src={User} alt="User" />
+              </button>
+              <div class="dropdown-content">
+                <a href="/editProfile">Edit Profile</a>
+                <a href="/login">Login</a>
+                <a href="#">Logout</a>
+              </div>
+            </div>
+            {/*  */}
 
             <button
               className="ms-4 buttonIconNavbar"

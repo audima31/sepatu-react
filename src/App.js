@@ -7,11 +7,16 @@ import Shop from "./components/Shop/Shop";
 import Journey from "./components/Journey/Journey";
 import Payment from "./components/Payment/Payment";
 import Keranjang from "./components/Keranjang/Keranjang";
+import "../src/assets/css/header.css";
+import Login from "./components/Authentication/Login";
+import Register from "./components/Authentication/Register";
 
 function App() {
   return (
     <Router>
       <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
         <Route path="/" element={<Home />} exact></Route>
         <Route path="/product/detail/:id" element={<DetailProduct />}></Route>
         <Route path="/shop" element={<Shop />}></Route>
