@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Caraosel from "./Caraosel";
 import Image from "./Image";
@@ -9,10 +9,21 @@ import numeral from "numeral";
 import Image2 from "./Image2";
 import alertIcon from "../../assets/images/Icon/alert-circle.png";
 import Keranjang from "../Keranjang/Modal";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import Swal from "sweetalert2";
+import { tambahCartBelanja } from "../../store/actions/CartAction";
+
 // import Swal from "sweetalert2";
 
 export default function Content1() {
   const dispatch = useDispatch();
+
+  const [cart, setCart] = useState(1);
+  const [size, setSize] = useState("");
+  const [selectedSize, setSelectedSize] = useState("");
+  const [loginChecked, setLoginChecked] = useState(false);
+
+  console.log(loginChecked);
   const { id } = useParams();
   const {
     getDetailProductResult,
@@ -20,11 +31,92 @@ export default function Content1() {
     getDetailProductError,
   } = useSelector((state) => state.ProductReducer);
 
+  // const {
+  //   tambahCartBelanjaResult,
+  //   tambahCartBelanjaLoading,
+  //   tambahCartBelanjaError,
+  // } = useSelector((state) => state.CartReducer);
+
   useEffect(() => {
     dispatch(getDetailProduct(id));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
 
+  const handleKurangBarang = (event) => {
+    if (cart === 1) {
+      setCart(cart);
+    } else {
+      let angka = parseInt(cart) - 1;
+      setCart(angka);
+    }
+  };
+
+  const handleTambahBarang = (event) => {
+    if (cart < 10) {
+      let angka = parseInt(cart) + 1;
+      setCart(angka);
+    } else {
+      setCart(cart);
+    }
+  };
+
+  const handleSize = (event) => {
+    setSize(event.target.value);
+    setSelectedSize(event.target.value);
+  };
+
+  const handleSubmitCart = (event) => {
+    event.preventDefault();
+
+    //Cek udah login apa belum
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      //Kalo udah login, maka tambahin data ke '/cart'
+      if (user) {
+        // Kalo user udah milih size dan jumlah barang
+        if (cart && size) {
+          const data = {
+            brand: getDetailProductResult.brand,
+            caption: getDetailProductResult.caption,
+            color: getDetailProductResult.color,
+            gender: getDetailProductResult.gender,
+            idProduct: getDetailProductResult.id,
+            image: getDetailProductResult.image[0],
+            price: getDetailProductResult.price * cart,
+            type: getDetailProductResult.type,
+            jumlahBarang: cart,
+            idCart: new Date().getTime() + "-" + user.uid,
+            idUser: user.uid,
+            size: size,
+          };
+
+          console.log("Data : ", data);
+          dispatch(tambahCartBelanja(data));
+
+          Swal.fire({
+            title: "Barang berhasil ditambahkan!",
+            icon: "success",
+          });
+        } else {
+          // Belom milih size dan jumlah barang
+          Swal.fire({
+            title: "Pilih size terlebih dahulu!",
+            icon: "error",
+          });
+        }
+      } else {
+        // Kalo belom login, maka tampilin swal alert
+        Swal.fire({
+          title: "Login terlebih dahulu!",
+          icon: "error",
+        });
+      }
+    });
+
+    setLoginChecked(true);
+  };
+
+  console.log("Cek : ", size);
   return (
     <div>
       {/* OffCanvas sebelah kanan */}
@@ -85,7 +177,7 @@ export default function Content1() {
                 {getDetailProductResult ? (
                   <>
                     <div className="row">
-                      <div className="col-6">
+                      <div className="col-6 ">
                         <Image image={getDetailProductResult.image[0]} />
                       </div>
                       <div className="col-6">
@@ -287,25 +379,144 @@ export default function Content1() {
                         </div>
                       </div>
                     </div>
-                    <select
-                      className="form-select"
-                      aria-label="Default select example"
-                      style={{ marginTop: "-0.1em" }}
-                    >
-                      <option selected value="1">
-                        US 6
-                      </option>
-                      <option value="2">US 7</option>
-                      <option value="3">US 8</option>
-                      <option value="4">US 9</option>
-                    </select>
+                    {/* Form */}
+                    <form onSubmit={handleSubmitCart}>
+                      <div className="mb-4 mt-2">
+                        <button
+                          type="button"
+                          className={
+                            selectedSize === "38"
+                              ? "buttonSelectSize selected"
+                              : "buttonSelectSize"
+                          }
+                          style={{ marginLeft: "0em" }}
+                          onClick={() =>
+                            handleSize({ target: { value: "38" } })
+                          }
+                        >
+                          38
+                        </button>
 
-                    <button
-                      className="btn fw-semibold button1 w-100 mt-3"
-                      type="button"
-                    >
-                      Add to bag
-                    </button>
+                        <button
+                          type="button"
+                          className={
+                            selectedSize === "39"
+                              ? "buttonSelectSize selected"
+                              : "buttonSelectSize"
+                          }
+                          onClick={() =>
+                            handleSize({ target: { value: "39" } })
+                          }
+                        >
+                          39
+                        </button>
+
+                        <button
+                          type="button"
+                          className={
+                            selectedSize === "40"
+                              ? "buttonSelectSize selected"
+                              : "buttonSelectSize"
+                          }
+                          onClick={() =>
+                            handleSize({ target: { value: "40" } })
+                          }
+                        >
+                          40
+                        </button>
+
+                        <button
+                          type="button"
+                          className={
+                            selectedSize === "41"
+                              ? "buttonSelectSize selected"
+                              : "buttonSelectSize"
+                          }
+                          onClick={() =>
+                            handleSize({ target: { value: "41" } })
+                          }
+                        >
+                          41
+                        </button>
+
+                        <button
+                          type="button"
+                          className={
+                            selectedSize === "42"
+                              ? "buttonSelectSize selected"
+                              : "buttonSelectSize"
+                          }
+                          onClick={() =>
+                            handleSize({ target: { value: "42" } })
+                          }
+                        >
+                          42
+                        </button>
+
+                        <button
+                          type="button"
+                          className={
+                            selectedSize === "43"
+                              ? "buttonSelectSize selected"
+                              : "buttonSelectSize"
+                          }
+                          onClick={() =>
+                            handleSize({ target: { value: "43" } })
+                          }
+                        >
+                          43
+                        </button>
+
+                        <button
+                          type="button"
+                          className={
+                            selectedSize === "44"
+                              ? "buttonSelectSize selected"
+                              : "buttonSelectSize"
+                          }
+                          onClick={() =>
+                            handleSize({ target: { value: "44" } })
+                          }
+                        >
+                          44
+                        </button>
+                      </div>
+
+                      <div className="input-group mt-3">
+                        <button
+                          onClick={handleKurangBarang}
+                          className="btn btn-outline-secondary"
+                          type="button"
+                          id="button-addon1"
+                        >
+                          -
+                        </button>
+                        <input
+                          type="text"
+                          className="form-control text-center"
+                          placeholder={cart}
+                          aria-label="Example text with button addon"
+                          aria-describedby="button-addon1"
+                          readOnly
+                        />
+                        <button
+                          onClick={handleTambahBarang}
+                          className="btn btn-outline-secondary"
+                          type="button"
+                          id="button-addon1"
+                        >
+                          +
+                        </button>
+                      </div>
+
+                      <button
+                        className="btn fw-semibold button1 w-100 mt-3"
+                        type="submit"
+                      >
+                        Add to bag
+                      </button>
+                    </form>
+
                     <p
                       className="text-center mt-3"
                       style={{

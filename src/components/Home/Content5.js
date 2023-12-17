@@ -36,7 +36,8 @@ class Content5 extends Component {
   render() {
     const { getListProductResult } = this.props;
     const { dataAdidasDoang } = this.state;
-    console.log("Data adidas doang", dataAdidasDoang);
+
+    console.log("Pantek : ", getListProductResult);
 
     return (
       <div style={{ backgroundColor: "#02021d" }}>

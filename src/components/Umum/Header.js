@@ -2,8 +2,31 @@ import React from "react";
 import { useLocation } from "react-router-dom";
 import Keranjang from "../../assets/images/Icon/shopping-bag.png";
 import User from "../../assets/images/Icon/user.png";
+import { getAuth, signOut } from "firebase/auth";
+import Swal from "sweetalert2";
 
 export default function Header() {
+  const handleLogout = () => {
+    const auth = getAuth();
+    signOut(auth)
+      .then(() => {
+        // Sign-out successful.
+        Swal.fire({
+          title: "Logout telah berhasil",
+          icon: "success",
+          timer: 2000,
+        });
+      })
+      .catch((error) => {
+        // An error happened.
+        Swal.fire({
+          title: "Gagal logout!",
+          icon: "error",
+          timer: 2000,
+        });
+      });
+  };
+
   const location = useLocation();
   return (
     <nav
@@ -69,7 +92,7 @@ export default function Header() {
                 Journey
               </a>
             </li>
-            <li class="nav-item">
+            {/* <li class="nav-item">
               <a
                 className={
                   location.pathname === "/payment"
@@ -80,7 +103,7 @@ export default function Header() {
               >
                 Payment
               </a>
-            </li>
+            </li> */}
 
             <li class="nav-item d-block d-lg-none">
               <a
@@ -94,7 +117,7 @@ export default function Header() {
                 Keranjang
               </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item d-block d-lg-none">
               <a
                 className={
                   location.pathname === "/test"
@@ -119,7 +142,9 @@ export default function Header() {
               <div class="dropdown-content">
                 <a href="/editProfile">Edit Profile</a>
                 <a href="/login">Login</a>
-                <a href="#">Logout</a>
+                <a href="#" onClick={handleLogout}>
+                  Logout
+                </a>
               </div>
             </div>
             {/*  */}
