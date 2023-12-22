@@ -351,12 +351,6 @@ class Content1 extends Component {
                         />
                         <label class="form-check-label" for="exampleRadios1">
                           ShopeePay
-                          <img
-                            className="ms-1"
-                            src={ShopeePay}
-                            style={{ width: "4em" }}
-                            alt=""
-                          />
                         </label>
                       </div>
 
@@ -429,12 +423,6 @@ class Content1 extends Component {
                         />
                         <label class="form-check-label" for="exampleRadios1">
                           Bank Transfer - Mandiri
-                          <img
-                            className="ms-1"
-                            src={ShopeePay}
-                            style={{ width: "4em" }}
-                            alt=""
-                          />
                         </label>
                       </div>
 
