@@ -5,42 +5,33 @@ import Caraosel from "./Caraosel";
 import Image from "./Image";
 import { useDispatch, useSelector } from "react-redux";
 import { getDetailProduct } from "../../store/actions/ProductAction";
-import numeral from "numeral";
 import Image2 from "./Image2";
 import alertIcon from "../../assets/images/Icon/alert-circle.png";
 import Keranjang from "../Keranjang/Modal";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import Swal from "sweetalert2";
 import { tambahCartBelanja } from "../../store/actions/CartAction";
-
-// import Swal from "sweetalert2";
+import { numberWithCommas } from "../../utils";
 
 export default function Content1() {
-  const dispatch = useDispatch();
-
   const [cart, setCart] = useState(1);
   const [size, setSize] = useState("");
   const [selectedSize, setSelectedSize] = useState("");
   const [loginChecked, setLoginChecked] = useState(false);
+  const dispatch = useDispatch();
 
-  console.log(loginChecked);
   const { id } = useParams();
+  console.log("id : ", id);
   const {
     getDetailProductResult,
     getDetailProductLoading,
     getDetailProductError,
   } = useSelector((state) => state.ProductReducer);
 
-  // const {
-  //   tambahCartBelanjaResult,
-  //   tambahCartBelanjaLoading,
-  //   tambahCartBelanjaError,
-  // } = useSelector((state) => state.CartReducer);
-
   useEffect(() => {
+    console.log("USE EFFECT JALAN");
     dispatch(getDetailProduct(id));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch]);
+  }, [id, dispatch]);
 
   const handleKurangBarang = (event) => {
     if (cart === 1) {
@@ -83,6 +74,7 @@ export default function Content1() {
             idProduct: getDetailProductResult.id,
             image: getDetailProductResult.image[0],
             price: getDetailProductResult.price * cart,
+            priceAwal: getDetailProductResult.price,
             type: getDetailProductResult.type,
             jumlahBarang: cart,
             idCart: new Date().getTime() + "-" + user.uid,
@@ -90,7 +82,6 @@ export default function Content1() {
             size: size,
           };
 
-          console.log("Data : ", data);
           dispatch(tambahCartBelanja(data));
 
           Swal.fire({
@@ -116,13 +107,12 @@ export default function Content1() {
     setLoginChecked(true);
   };
 
-  console.log("Cek : ", size);
   return (
     <div>
       {/* OffCanvas sebelah kanan */}
       <div
         class="offcanvas offcanvas-end"
-        tabindex="-1"
+        tabIndex="-1"
         id="offcanvasRight"
         aria-labelledby="offcanvasRightLabel"
         style={{ width: "30%" }}
@@ -222,8 +212,7 @@ export default function Content1() {
                           className="fw-semibold"
                           style={{ fontSize: "1.2em" }}
                         >
-                          Rp.{" "}
-                          {numeral(getDetailProductResult.price).format("0,0")}
+                          Rp. {numberWithCommas(getDetailProductResult.price)}
                         </p>
                       </div>
                     </div>

@@ -1,4 +1,9 @@
-import { CART_BELANJA, GET_LIST_KERANJANG } from "../../actions/CartAction";
+import {
+  CART_BELANJA,
+  GET_LIST_KERANJANG,
+  DELETE_KERANJANG,
+  TOTAL_CART,
+} from "../../actions/CartAction";
 
 const initialState = {
   tambahCartBelanjaLoading: false,
@@ -8,6 +13,14 @@ const initialState = {
   getListKeranjangLoading: false,
   getListKeranjangResult: false,
   getListKeranjangError: false,
+
+  deleteKeranjangLoading: false,
+  deleteKeranjangResult: false,
+  deleteKeranjangError: false,
+
+  totalKeranjangLoading: false,
+  totalKeranjangResult: false,
+  totalKeranjangError: false,
 };
 
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -27,6 +40,22 @@ export default function (state = initialState, action) {
         getListKeranjangLoading: action.payload.loading,
         getListKeranjangResult: action.payload.data,
         getListKeranjangError: action.payload.errorMessage,
+      };
+
+    case DELETE_KERANJANG:
+      return {
+        ...state,
+        deleteKeranjangLoading: action.payload.loading,
+        deleteKeranjangResult: action.payload.data,
+        deleteKeranjangError: action.payload.errorMessage,
+      };
+
+    case TOTAL_CART:
+      return {
+        ...state,
+        totalKeranjangLoading: action.payload.loading,
+        totalKeranjangResult: action.payload.data,
+        totalKeranjangError: action.payload.errorMessage,
       };
     default:
       return state;

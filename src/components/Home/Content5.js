@@ -25,8 +25,6 @@ class Content5 extends Component {
     const { getListProductResult } = this.props;
 
     if (getListProductResult.brand === "Adidas") {
-      console.log("Data", getListProductResult);
-
       this.setState({
         dataAdidasDoang: getListProductResult,
       });
@@ -36,8 +34,6 @@ class Content5 extends Component {
   render() {
     const { getListProductResult } = this.props;
     const { dataAdidasDoang } = this.state;
-
-    console.log("Pantek : ", getListProductResult);
 
     return (
       <div style={{ backgroundColor: "#02021d" }}>

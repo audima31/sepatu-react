@@ -15,9 +15,9 @@ class Content1 extends Component {
       images: [Foto1, Foto2, Foto3],
     };
   }
+
   render() {
     const { images } = this.state;
-    console.log("Data : ", images);
     return (
       <div>
         {/* OffCanvas sebelah kanan */}

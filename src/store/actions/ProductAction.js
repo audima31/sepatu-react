@@ -29,6 +29,7 @@ export const getListProduct = () => {
 export const getDetailProduct = (id) => {
   return (dispatch) => {
     dispatchLoading(dispatch, GET_DETAIL_PRODUCT);
+    console.log("test");
 
     const starCountRef = ref(FIREBASE, "product/" + id);
     onValue(starCountRef, (snapshot) => {
@@ -37,25 +38,7 @@ export const getDetailProduct = (id) => {
         console.log("Data Detail Product: ", data);
         dispatchSuccess(dispatch, GET_DETAIL_PRODUCT, data);
       } else {
-        dispatchError(dispatch, GET_DETAIL_PRODUCT, "Error");
-      }
-    });
-  };
-};
-
-export const tambahKeranjang = (id) => {
-  return (dispatch) => {
-    dispatchLoading(dispatch, TAMBAH_KERANJANG);
-
-    //Ambil Id nya dulu
-    const starCountRef = ref(FIREBASE, "product/" + id);
-    onValue(starCountRef, (snapshot) => {
-      if (snapshot) {
-        const data = snapshot.val();
-        // Ketika data sudah dapat, maka tambahkan ke data 'Cart'
-        // set(ref(FIREBASE, "cart/" + new Date().getTime() + "-" ));
-        console.log("Data Detail Product: ", data);
-      } else {
+        console.log("Action Error");
         dispatchError(dispatch, GET_DETAIL_PRODUCT, "Error");
       }
     });

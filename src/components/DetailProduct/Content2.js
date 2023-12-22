@@ -28,8 +28,20 @@ class Content2 extends Component {
 
         <div className="container">
           <div className="d-flex justify-content-between">
-            <p>91 reviews</p>
-            <p>test</p>
+            <div>
+              <p>91 reviews</p>
+            </div>
+            <div>
+              <select
+                class="form-select-sm"
+                aria-label="Small select example"
+                style={{ border: "0px solid #ffffff" }}
+              >
+                <option selected>Latest Review</option>
+                <option value="1">Highest Rating</option>
+                <option value="2">Lowest Rating</option>
+              </select>
+            </div>
           </div>
           <hr style={{ marginTop: "-0.5em" }} />
 

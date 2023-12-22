@@ -1,6 +1,6 @@
-import numeral from "numeral";
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { numberWithCommas } from "../../utils";
 
 class CardContent5 extends Component {
   render() {
@@ -24,7 +24,7 @@ class CardContent5 extends Component {
               <div className="d-flex justify-content-between mt-2">
                 <label style={{ fontSize: "0.85em" }}>{this.props.type}</label>
                 <label style={{ fontSize: "0.85em" }} className="fw-semibold">
-                  Rp. {numeral(this.props.price).format("0,0")}
+                  Rp. {numberWithCommas(this.props.price)}
                 </label>
               </div>
             </div>
@@ -56,7 +56,7 @@ class CardContent5 extends Component {
                   {this.props.type}
                 </p>
                 <p style={{ fontSize: "0.85em" }}>
-                  Rp. {numeral(this.props.price).format("0,0")}
+                  Rp. {numberWithCommas(this.props.price)}
                 </p>
               </div>
             </div>

@@ -81,10 +81,6 @@ export const loginUser = (data) => {
             const dataUser = snapshot.val();
             console.log("Data : ", dataUser);
             dispatchSuccess(dispatch, LOGIN_USER, dataUser);
-            Swal.fire({
-              title: "Berhasil login",
-              icon: "success",
-            });
           } else {
             console.log("Masuk else");
 

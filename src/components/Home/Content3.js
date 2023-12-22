@@ -9,7 +9,6 @@ class Content3 extends Component {
   }
   render() {
     const { getListProductResult } = this.props;
-    console.log("Data Content 3 :", getListProductResult);
 
     return (
       <div className="container" style={{ marginTop: "3em" }}>

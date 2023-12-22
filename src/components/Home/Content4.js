@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Model4 from "../../assets/images/4modelsepatu.jpg";
 import Model6 from "../../assets/images/2sepatu.png";
 import Rates from "../../assets/images/starsRate.png";
-import numeral from "numeral";
+import { numberWithCommas } from "../../utils";
 
 class Content4 extends Component {
   render() {
@@ -50,7 +50,7 @@ class Content4 extends Component {
               <div className="d-flex justify-content-between mt-2">
                 <div style={{ fontSize: "0.85em" }}>Core 1461 </div>
                 <div style={{ fontSize: "0.85em" }} className="fw-semibold">
-                  Rp. {numeral(2300000).format("0,0")}
+                  Rp. {numberWithCommas(2300000)}
                 </div>
               </div>
             </div>
@@ -108,7 +108,7 @@ class Content4 extends Component {
                       style={{ fontSize: "0.85em" }}
                       className="fw-semibold pb-2"
                     >
-                      Rp. {numeral(2300000).format("0,0")}
+                      Rp. {numberWithCommas(2300000)}
                     </div>
                   </div>
                 </div>

@@ -2,7 +2,6 @@ import React, { Component } from "react";
 
 class Caraosel extends Component {
   render() {
-    console.log("Gambar : ", this.props.image[0]);
     return (
       <div>
         <div id="carouselExample" class="carousel slide">

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import numeral from "numeral";
 import { Link } from "react-router-dom";
+import { numberWithCommas } from "../../utils";
 
 class CardKecil extends Component {
   render() {
@@ -27,7 +27,7 @@ class CardKecil extends Component {
                     style={{ fontSize: "0.85em" }}
                     className="fw-semibold mb-2"
                   >
-                    Rp. {numeral(this.props.price).format("0,0")}
+                    Rp. {numberWithCommas(this.props.price)}
                   </label>
                 </div>
               </div>

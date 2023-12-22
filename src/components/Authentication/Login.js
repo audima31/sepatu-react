@@ -52,9 +52,15 @@ class Login extends Component {
   handleCheckLogin() {
     const auth = getAuth();
     onAuthStateChanged(auth, (user) => {
-      console.log("Data User : ", user);
       if (user) {
-        window.location = "/";
+        Swal.fire({
+          title: "Berhasil login",
+          icon: "success",
+        });
+
+        setTimeout(() => {
+          window.location = "/";
+        }, 2000);
       } else {
         // User is signed out
       }
@@ -67,7 +73,6 @@ class Login extends Component {
   render() {
     const { loginUserResult, loginUserError, loginUserLoading } = this.props;
 
-    console.log("Data : ", loginUserResult);
     return (
       <div>
         <div className="row  d-flex align-items-center">

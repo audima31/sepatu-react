@@ -3,7 +3,6 @@ import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 export default function CaraoselContent3({ data }) {
-  console.log("Data Caraosel:", data);
   return (
     <Carousel showThumbs={false} emulateTouch={true}>
       {data ? (

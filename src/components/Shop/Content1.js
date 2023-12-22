@@ -35,7 +35,6 @@ class Content1 extends Component {
             (product) => product.gender === selectedGender
           );
 
-    console.log("Select :", selectedGender);
     return (
       <div className="container">
         {/* OffCanvas sebelah kanan */}
@@ -46,8 +45,14 @@ class Content1 extends Component {
           aria-labelledby="offcanvasRightLabel"
           style={{ width: "30%" }}
         >
-          <div class="offcanvas-header">
-            <h5 id="offcanvasRightLabel">Offcanvas right</h5>
+          <div class="offcanvas-header ">
+            <h5
+              className="fw-semibold"
+              id="offcanvasRightLabel"
+              style={{ color: "#fa9200" }}
+            >
+              CART
+            </h5>
             <button
               type="button"
               class="btn-close text-reset"
@@ -55,6 +60,7 @@ class Content1 extends Component {
               aria-label="Close"
             ></button>
           </div>
+
           <div class="offcanvas-body">
             <Keranjang />
           </div>

@@ -1,11 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import Keranjang from "../../assets/images/Icon/shopping-bag.png";
 import User from "../../assets/images/Icon/user.png";
-import { getAuth, signOut } from "firebase/auth";
+import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import Swal from "sweetalert2";
+import { useDispatch, useSelector } from "react-redux";
+import { totalCartUser } from "../../store/actions/CartAction";
 
 export default function Header() {
+  const [status, setStatus] = useState(false);
+  const [totalCart, setTotalCart] = useState(0);
+
+  const dispatch = useDispatch();
+
+  const { totalKeranjangResult, totalKeranjangLoading, totalKeranjangError } =
+    useSelector((state) => state.CartReducer);
+
   const handleLogout = () => {
     const auth = getAuth();
     signOut(auth)
@@ -27,10 +37,32 @@ export default function Header() {
       });
   };
 
+  useEffect(() => {
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setStatus(true);
+      } else {
+        // User is signed out
+        setStatus(false);
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        dispatch(totalCartUser(user.uid));
+        setTotalCart(totalKeranjangResult);
+      }
+    });
+  }, [dispatch, totalKeranjangResult]);
+
   const location = useLocation();
   return (
     <nav
-      class="navbar navbar-expand-lg "
+      class="navbar navbar-expand-lg mt-1"
       style={{ backgroundColor: "#FFFFFF" }}
     >
       <div class="container-fluid ">
@@ -139,34 +171,35 @@ export default function Header() {
               >
                 <img src={User} alt="User" />
               </button>
-              <div class="dropdown-content">
-                <a href="/editProfile">Edit Profile</a>
-                <a href="/login">Login</a>
-                <a href="#" onClick={handleLogout}>
-                  Logout
-                </a>
-              </div>
+              {status === true ? (
+                <>
+                  <div class="dropdown-content">
+                    <a href="/editProfile">Edit Profile</a>
+                    <a onClick={handleLogout}>Logout</a>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div class="dropdown-content">
+                    <a href="/login">Login</a>
+                  </div>
+                </>
+              )}
             </div>
             {/*  */}
 
             <button
-              className="ms-4 buttonIconNavbar"
+              className="ms-4 me-4 buttonIconNavbar"
               type="button"
               data-bs-toggle="offcanvas"
               data-bs-target="#offcanvasRight"
               aria-controls="offcanvasRight"
               style={{ backgroundColor: "transparent", border: 0 }}
             >
-              {/* <a
-                className={
-                  location.pathname === "/keranjang"
-                    ? "nav-link active fw-bold akses"
-                    : "nav-link fw-bold beforeAkses "
-                }
-                href="/keranjang"
-              > */}
               <img src={Keranjang} alt="Keranjang" />
-              {/* </a> */}
+              {totalCart > 0 && (
+                <span className="notification-badge">{totalCart}</span>
+              )}
             </button>
           </div>
         </div>

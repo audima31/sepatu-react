@@ -1,20 +1,37 @@
 import React, { Component } from "react";
-import Sepatu from "../../assets/images/5sepatu.png";
 import { connect } from "react-redux";
-import { getListKeranjang } from "../../store/actions/CartAction";
+import {
+  deleteKeranjang,
+  getListKeranjang,
+} from "../../store/actions/CartAction";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { numberWithCommas } from "../../utils";
 
 class Modal extends Component {
   componentDidMount() {
     const auth = getAuth();
     onAuthStateChanged(auth, (user) => {
-      console.log("Data User : ", user);
-      this.props.dispatch(getListKeranjang(user.uid));
+      if (user) {
+        this.props.dispatch(getListKeranjang(user.uid));
+      }
     });
   }
+
+  handleDeleteKeranjang(data) {
+    this.props.dispatch(deleteKeranjang(data));
+  }
+
   render() {
     const { getListKeranjangResult } = this.props;
-    console.log("Data Keranjang : ", getListKeranjangResult);
+    // Menghitung total harga dari getListKeranjangResult
+    const totalHarga = getListKeranjangResult
+      ? Object.keys(getListKeranjangResult).reduce(
+          (acc, data) =>
+            acc + parseFloat(getListKeranjangResult[data].price || 0),
+          0
+        )
+      : 0;
+
     return (
       <div>
         {/* Cara .map nya beda, karena data /cart berupa OBJECT bukan ARRAY */}
@@ -42,7 +59,12 @@ class Modal extends Component {
                         </label>
                         <br />
                         <label style={{ fontSize: "0.85em", color: "#7e7e7e" }}>
-                          {getListKeranjangResult[data].price}
+                          {getListKeranjangResult[data].jumlahBarang}
+                          {" x "}
+                          Rp.{" "}
+                          {numberWithCommas(
+                            getListKeranjangResult[data].priceAwal
+                          )}
                         </label>
                       </div>
                       <div>
@@ -50,9 +72,17 @@ class Modal extends Component {
                           style={{
                             backgroundColor: "#FFFFFF",
                             border: "0px solid black",
+                            borderRadius: "1em",
+                            color: "red",
                           }}
+                          className="fw-bold buttonDelete"
+                          onClick={() =>
+                            this.handleDeleteKeranjang(
+                              getListKeranjangResult[data].idCart
+                            )
+                          }
                         >
-                          x
+                          <i class="bi bi-x-circle"></i>
                         </button>
                       </div>
                     </div>
@@ -74,7 +104,7 @@ class Modal extends Component {
               <label className="fw-semibold" style={{ fontSize: "1em" }}>
                 Subtotal:{" "}
               </label>{" "}
-              <label>Rp. 150.000</label>
+              <label>Rp. {numberWithCommas(totalHarga)}</label>
             </div>
             <a href="/keranjang">
               <button type="submit" className="btn fw-semibold button1 w-100">
@@ -94,5 +124,9 @@ const mapStateToProps = (state) => ({
   getListKeranjangLoading: state.CartReducer.getListKeranjangLoading,
   getListKeranjangResult: state.CartReducer.getListKeranjangResult,
   getListKeranjangError: state.CartReducer.getListKeranjangError,
+
+  deleteKeranjangLoading: state.CartReducer.deleteKeranjangLoading,
+  deleteKeranjangResult: state.CartReducer.deleteKeranjangResult,
+  deleteKeranjangError: state.CartReducer.deleteKeranjangError,
 });
 export default connect(mapStateToProps, null)(Modal);
