@@ -8,6 +8,16 @@
   overflow: hidden;
 }
 
+.formLogin{
+  width: 70%;
+  margin: 0;
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
 .bgNav {
     background-color: #ffffff;
     height: 4em;
@@ -81,8 +91,6 @@
   border-color: #5f5f6f89;
   transform: translateX(-50%) ;
 }
-
-
 
 .stroked-text-1 {
     color: #212529; /* Warna dasar teks */

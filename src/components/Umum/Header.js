@@ -24,8 +24,11 @@ export default function Header() {
         Swal.fire({
           title: "Logout telah berhasil",
           icon: "success",
-          timer: 2000,
+          timer: 1000,
         });
+        setTimeout(() => {
+          window.location.reload();
+        }, 1500);
       })
       .catch((error) => {
         // An error happened.
@@ -124,44 +127,44 @@ export default function Header() {
                 Journey
               </a>
             </li>
-            {/* <li class="nav-item">
-              <a
-                className={
-                  location.pathname === "/payment"
-                    ? "nav-link active fw-bold akses"
-                    : "nav-link fw-bold beforeAkses "
-                }
-                href="/payment"
-              >
-                Payment
-              </a>
-            </li> */}
 
-            <li class="nav-item d-block d-lg-none">
+            <li class="nav-item d-block d-md-none">
               <a
                 className={
-                  location.pathname === "/keranjang"
+                  location.pathname === "/mobileModal"
                     ? "nav-link active fw-bold akses"
                     : "nav-link fw-bold beforeAkses "
                 }
-                href="/keranjang"
+                href="/mobileModal"
               >
-                Keranjang
+                Cart
               </a>
             </li>
-            <li class="nav-item d-block d-lg-none">
-              <a
-                className={
-                  location.pathname === "/test"
-                    ? "nav-link active fw-bold akses"
-                    : "nav-link fw-bold beforeAkses "
-                }
-                href="/logout"
-              >
-                Logout
-              </a>
-            </li>
+
+            {status === true ? (
+              <>
+                <li className="nav-link fw-bold beforeAkses d-block d-md-none">
+                  <a onClick={handleLogout}>Logout</a>
+                </li>
+              </>
+            ) : (
+              <>
+                <li className="nav-item d-block d-md-none">
+                  <a
+                    href="/login"
+                    className={
+                      location.pathname === "/login"
+                        ? "nav-link active fw-bold akses"
+                        : "nav-link fw-bold beforeAkses "
+                    }
+                  >
+                    Login
+                  </a>
+                </li>
+              </>
+            )}
           </ul>
+
           <div className="d-none d-lg-block">
             {/*  */}
             <div class="dropdown">
@@ -174,7 +177,7 @@ export default function Header() {
               {status === true ? (
                 <>
                   <div class="dropdown-content">
-                    <a href="/editProfile">Edit Profile</a>
+                    {/* <a href="/editProfile">Edit Profile</a> */}
                     <a onClick={handleLogout}>Logout</a>
                   </div>
                 </>

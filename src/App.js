@@ -10,6 +10,7 @@ import Keranjang from "./components/Keranjang/Keranjang";
 import "../src/assets/css/header.css";
 import Login from "./components/Authentication/Login";
 import Register from "./components/Authentication/Register";
+import MobileModal from "./components/Keranjang/MobileModal";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/journey" element={<Journey />}></Route>
         <Route path="/payment" element={<Payment />}></Route>
         <Route path="/keranjang" element={<Keranjang />}></Route>
+        <Route path="/mobileModal" element={<MobileModal />}></Route>
       </Routes>
     </Router>
   );

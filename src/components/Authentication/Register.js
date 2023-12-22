@@ -65,7 +65,121 @@ class Register extends Component {
   render() {
     return (
       <div>
-        <div className="row  d-flex align-items-center">
+        <div className="formLogin">
+          <h5
+            className="fw-bold mb-4 text-center"
+            style={{ fontSize: "1.5em" }}
+          >
+            Sign Up
+          </h5>
+          <div
+            className="d-none d-md-block"
+            style={{ paddingLeft: "25%", paddingRight: "25%" }}
+          >
+            <form onSubmit={(event) => this.handleSubmit(event)}>
+              <div className="mb-3">
+                <input
+                  type="text"
+                  placeholder="Full Name"
+                  className="form-control"
+                  id="exampleFormControlInput1"
+                  onChange={(event) => this.handleName(event)}
+                ></input>
+              </div>
+
+              <div className="mb-3">
+                <input
+                  type="email"
+                  placeholder="Email"
+                  className="form-control"
+                  id="exampleFormControlInput2"
+                  onChange={(event) => this.handleEmail(event)}
+                ></input>
+              </div>
+
+              <div className="mb-3">
+                <input
+                  type="password"
+                  className="form-control"
+                  id="exampleFormControlInput3"
+                  placeholder="Password"
+                  onChange={(event) => this.handlePassword(event)}
+                ></input>
+              </div>
+
+              <button
+                type="submit"
+                className="btn fw-semibold button1 w-100"
+                style={{ borderRadius: "5px" }}
+              >
+                SIGN UP
+              </button>
+            </form>
+
+            <div className="text-center mt-3">
+              <label>
+                Have an account?{" "}
+                <a href="/login">
+                  <label>Log in</label>
+                </a>
+              </label>
+            </div>
+          </div>
+
+          {/*  */}
+          <div className="d-block d-md-none">
+            <form onSubmit={(event) => this.handleSubmit(event)}>
+              <div className="mb-3">
+                <input
+                  type="text"
+                  placeholder="Full Name"
+                  className="form-control"
+                  id="exampleFormControlInput1"
+                  onChange={(event) => this.handleName(event)}
+                ></input>
+              </div>
+
+              <div className="mb-3">
+                <input
+                  type="email"
+                  placeholder="Email"
+                  className="form-control"
+                  id="exampleFormControlInput2"
+                  onChange={(event) => this.handleEmail(event)}
+                ></input>
+              </div>
+
+              <div className="mb-3">
+                <input
+                  type="password"
+                  className="form-control"
+                  id="exampleFormControlInput3"
+                  placeholder="Password"
+                  onChange={(event) => this.handlePassword(event)}
+                ></input>
+              </div>
+
+              <button
+                type="submit"
+                className="btn fw-semibold button1 w-100"
+                style={{ borderRadius: "5px" }}
+              >
+                SIGN UP
+              </button>
+            </form>
+
+            <div className="text-center mt-3">
+              <label>
+                Have an account?{" "}
+                <a href="/login">
+                  <label>Log in</label>
+                </a>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        {/* <div className="row  d-flex align-items-center">
           <div className="col"></div>
           <div className="col px-5">
             <h5 className="fw-bold mb-4">Sign Up</h5>
@@ -136,7 +250,7 @@ class Register extends Component {
               </label>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     );
   }

@@ -60,7 +60,7 @@ class Login extends Component {
 
         setTimeout(() => {
           window.location = "/";
-        }, 2000);
+        }, 1500);
       } else {
         // User is signed out
       }
@@ -75,30 +75,26 @@ class Login extends Component {
 
     return (
       <div>
-        <div className="row  d-flex align-items-center">
-          <div className="col"></div>
-          <div className="col px-5 ">
-            <p
-              style={{ fontSize: "2em", lineHeight: "1em" }}
-              className="fw-bold"
-            >
-              Log in
-            </p>
-
-            <label style={{ color: "#9ea1af" }}>
-              Hello! Please login for better experience.
+        <div className="formLogin">
+          <div className="text-center" style={{ fontSize: "2.8em" }}>
+            <label style={{ color: "#212529", fontWeight: "lighter" }}>
+              okta
+              <label style={{ color: "#fa9200", fontWeight: "lighter" }}>
+                S
+              </label>
+              hoes
+              <label style={{ color: "#fa9200", fontWeight: "bold" }}>.</label>
             </label>
+          </div>
+          <div
+            className="d-none d-md-block"
+            style={{ paddingLeft: "25%", paddingRight: "25%" }}
+          >
             <form onSubmit={(event) => this.handleLoginSubmit(event)}>
               <div className="mt-4 mb-3">
-                <label
-                  htmlFor="exampleFormControlInput1"
-                  className="form-label"
-                >
-                  Email
-                </label>
                 <input
                   type="email"
-                  placeholder="name@gmail.com"
+                  placeholder="Email"
                   className="form-control"
                   id="exampleFormControlInput1"
                   onChange={(event) => this.handleEmail(event)}
@@ -106,14 +102,51 @@ class Login extends Component {
               </div>
 
               <div className="mb-3">
-                <label
-                  htmlFor="exampleFormControlInput2"
-                  className="form-label"
-                >
-                  Password
-                </label>
                 <input
                   type="password"
+                  placeholder="Password"
+                  className="form-control"
+                  id="exampleFormControlInput2"
+                  onChange={(event) => this.handlePassword(event)}
+                ></input>
+              </div>
+
+              <button
+                type="submit"
+                className="btn fw-semibold button1 w-100"
+                style={{ borderRadius: "5px" }}
+              >
+                LOG IN
+              </button>
+            </form>
+
+            <div className="text-center mt-3">
+              <label>
+                Don't have an account?{" "}
+                <a href="/register">
+                  <label>Sign Up</label>
+                </a>
+              </label>
+            </div>
+          </div>
+
+          {/*  */}
+          <div className="d-block d-md-none">
+            <form onSubmit={(event) => this.handleLoginSubmit(event)}>
+              <div className="mt-4 mb-3">
+                <input
+                  type="email"
+                  placeholder="Email"
+                  className="form-control"
+                  id="exampleFormControlInput1"
+                  onChange={(event) => this.handleEmail(event)}
+                ></input>
+              </div>
+
+              <div className="mb-3">
+                <input
+                  type="password"
+                  placeholder="Password"
                   className="form-control"
                   id="exampleFormControlInput2"
                   onChange={(event) => this.handlePassword(event)}
