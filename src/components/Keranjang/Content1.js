@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Keranjang from "./Modal";
 import { connect } from "react-redux";
-import { getListKeranjang } from "../../store/actions/CartAction";
+import { getListKeranjang, placeOrder } from "../../store/actions/CartAction";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { numberWithCommas } from "../../utils";
 import ShopeePay from "../../assets/images/pay/Shopee.svg.png";
@@ -67,29 +67,44 @@ class Content1 extends Component {
       this.state;
     event.preventDefault();
 
-    if ((email, firstName, lastName, city, address, phoneNumber)) {
-      if (!getListKeranjangResult) {
-        Swal.fire(
-          "Pemesanan gagal!",
-          "Mohon pilih barang terlebih dahulu",
-          "error"
-        );
-      } else if (metodh) {
-        Swal.fire(
-          "Pemesanan berhasil",
-          "Mohon segera melakukan pembayaran",
-          "success"
-        );
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        if ((email, firstName, lastName, city, address, phoneNumber)) {
+          if (!getListKeranjangResult) {
+            Swal.fire(
+              "Pemesanan gagal!",
+              "Mohon pilih barang terlebih dahulu",
+              "error"
+            );
+          } else if (metodh) {
+            this.props.dispatch(placeOrder(user.uid));
+            Swal.fire(
+              "Pemesanan berhasil",
+              "Mohon segera melakukan pembayaran",
+              "success"
+            );
+            setTimeout(() => {
+              window.location = "/";
+            }, 2000);
+          } else {
+            Swal.fire(
+              "Pemesanan gagal!",
+              "Pilih metode pembayaran terlebih dahulu",
+              "error"
+            );
+          }
+        } else {
+          Swal.fire(
+            "Pemesanan gagal!",
+            "Isi semua data terlebih dahulu",
+            "error"
+          );
+        }
       } else {
-        Swal.fire(
-          "Pemesanan gagal!",
-          "Pilih metode pembayaran terlebih dahulu",
-          "error"
-        );
+        // User is signed out
       }
-    } else {
-      Swal.fire("Pemesanan gagal!", "Isi semua data terlebih dahulu", "error");
-    }
+    });
   }
 
   componentDidMount() {
@@ -417,11 +432,11 @@ class Content1 extends Component {
                           class="form-check-input"
                           type="radio"
                           name="exampleRadios"
-                          id="exampleRadios1"
+                          id="exampleRadios5"
                           value="option1"
                           onChange={(event) => this.handlePilihMetode(event)}
                         />
-                        <label class="form-check-label" for="exampleRadios1">
+                        <label class="form-check-label" for="exampleRadios5">
                           Bank Transfer - Mandiri
                         </label>
                       </div>
@@ -431,11 +446,11 @@ class Content1 extends Component {
                           class="form-check-input"
                           type="radio"
                           name="exampleRadios"
-                          id="exampleRadios2"
+                          id="exampleRadios6"
                           value="option2"
                           onChange={(event) => this.handlePilihMetode(event)}
                         />
-                        <label class="form-check-label" for="exampleRadios2">
+                        <label class="form-check-label" for="exampleRadios6">
                           Bank Transfer - BNI
                         </label>
                       </div>
@@ -445,11 +460,11 @@ class Content1 extends Component {
                           class="form-check-input"
                           type="radio"
                           name="exampleRadios"
-                          id="exampleRadios3"
+                          id="exampleRadios7"
                           value="option3"
                           onChange={(event) => this.handlePilihMetode(event)}
                         />
-                        <label class="form-check-label" for="exampleRadios3">
+                        <label class="form-check-label" for="exampleRadios7">
                           Bank Transfer - BCA
                         </label>
                       </div>
@@ -459,11 +474,11 @@ class Content1 extends Component {
                           class="form-check-input"
                           type="radio"
                           name="exampleRadios"
-                          id="exampleRadios4"
+                          id="exampleRadios8"
                           value="option4"
                           onChange={(event) => this.handlePilihMetode(event)}
                         />
-                        <label class="form-check-label" for="exampleRadios4">
+                        <label class="form-check-label" for="exampleRadios8">
                           Bank Transfer - BRI
                         </label>
                       </div>

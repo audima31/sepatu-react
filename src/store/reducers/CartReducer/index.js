@@ -3,6 +3,7 @@ import {
   GET_LIST_KERANJANG,
   DELETE_KERANJANG,
   TOTAL_CART,
+  PLACE_ORDER,
 } from "../../actions/CartAction";
 
 const initialState = {
@@ -21,6 +22,10 @@ const initialState = {
   totalKeranjangLoading: false,
   totalKeranjangResult: false,
   totalKeranjangError: false,
+
+  placeOrderLoading: false,
+  placeOrderResult: false,
+  placeOrderError: false,
 };
 
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -56,6 +61,14 @@ export default function (state = initialState, action) {
         totalKeranjangLoading: action.payload.loading,
         totalKeranjangResult: action.payload.data,
         totalKeranjangError: action.payload.errorMessage,
+      };
+
+    case PLACE_ORDER:
+      return {
+        ...state,
+        placeOrderLoading: action.payload.loading,
+        placeOrderResult: action.payload.data,
+        placeOrderError: action.payload.errorMessage,
       };
     default:
       return state;

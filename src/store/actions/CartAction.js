@@ -19,6 +19,7 @@ export const CART_BELANJA = "CART_BELANJA";
 export const GET_LIST_KERANJANG = "GET_LIST_KERANJANG";
 export const DELETE_KERANJANG = "DELETE_KERANJANG";
 export const TOTAL_CART = "TOTAL_CART";
+export const PLACE_ORDER = "PLACE_ORDER";
 
 export const tambahCartBelanja = (data) => {
   return (dispatch) => {
@@ -110,5 +111,18 @@ export const totalCartUser = (uid) => {
         dispatchError(dispatch, TOTAL_CART, "error");
       }
     });
+  };
+};
+
+export const placeOrder = (uid) => {
+  return (dispatch) => {
+    dispatchLoading(dispatch, PLACE_ORDER);
+
+    if (uid) {
+      remove(ref(FIREBASE, "cart/"), orderByChild("idUser"), equalTo(uid));
+      dispatchSuccess(dispatch, PLACE_ORDER, "berhasil");
+    } else {
+      dispatchError(dispatch, PLACE_ORDER, "gagal");
+    }
   };
 };
